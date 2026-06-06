@@ -15,5 +15,21 @@ class Database:
 		self.cursor.execute(query, (user_ip, task))
 		self.sqlite_connection.commit()
 
+	def get_zadachi_by_ip(self, user_ip):
+		query = "SELECT zadacha, zadacha_set, zadacha_done, status, zadacha_id FROM zadachi WHERE user_ip = ?"
+		self.cursor.execute(query, (user_ip,))
+		result = self.cursor.fetchall()
+		return result
+
+	def delete_zadacha_by_id(self, zadacha_id):
+		query = "DELETE FROM zadachi WHERE zadacha_id = ?"
+		self.cursor.execute(query, (zadacha_id,))
+		self.sqlite_connection.commit()
+
+	def change_zadacha_done(self, zadacha_id):
+		query = "UPDATE zadachi SET status = ?, zadacha_done = CURRENT_DATE  WHERE zadacha_id = ?"
+		self.cursor.execute(query, (1, zadacha_id))
+		self.sqlite_connection.commit()
+
 	def close(self):
 		self.sqlite_connection.close()
