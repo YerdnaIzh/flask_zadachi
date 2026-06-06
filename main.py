@@ -45,10 +45,6 @@ def set_done(zadacha_id):
 		return redirect('/')
 
 
-app.run()
-
-
-
 # css - HTML
 # HTML - flask
 # flask - db
